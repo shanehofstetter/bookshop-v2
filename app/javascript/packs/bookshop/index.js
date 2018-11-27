@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes';
+import App from './app';
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
-        <Routes />, document.getElementById('bookshop-app'),
+        <App/>, document.getElementById('bookshop-app'),
     )
 });
