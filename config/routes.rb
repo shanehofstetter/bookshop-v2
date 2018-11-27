@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'locales/:locale/translation', to: 'translations#show'
+
   root to: 'pages#root'
   get '*unmatched_route', to: 'pages#root'
 end

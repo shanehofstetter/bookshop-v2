@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
     Collapse,
     Navbar,
@@ -8,9 +8,11 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem } from 'reactstrap';
+    DropdownItem
+} from 'reactstrap';
+import {withNamespaces} from "react-i18next";
 
-export default class NavigationBar extends React.Component {
+class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -19,34 +21,34 @@ export default class NavigationBar extends React.Component {
             isOpen: false
         };
     }
+
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     }
+
     render() {
+        const {t, i18n} = this.props;
+
         return (
             <div>
                 <Navbar color="light" light expand="md">
                     <NavbarBrand href="/">Bookshop</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
+                    <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    Options
+                                    {i18n.language}
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
-                                        Option 1
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Option 2
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        Reset
-                                    </DropdownItem>
+                                    {
+                                        ['de', 'en'].map(locale => {
+                                            return <DropdownItem key={locale}
+                                                                 onClick={() => i18n.changeLanguage(locale)}>{locale}</DropdownItem>;
+                                        })
+                                    }
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav>
@@ -56,3 +58,5 @@ export default class NavigationBar extends React.Component {
         );
     }
 }
+
+export default withNamespaces('translation')(NavigationBar);
