@@ -30,6 +30,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
-  hello: "Hallo Welt"
-  books:
-    title: Bücher
+  form:
+    submit: Speichern
+
+  activerecord:
+    models:
+      book:
+        one: Buch
+        other: Bücher
+    attributes:
+      book:
+        title: Titel
+        description: Beschreibung
+        isbn: ISBN

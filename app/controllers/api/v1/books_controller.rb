@@ -10,6 +10,22 @@ module Api
       def show
         render json: Book.find(params[:id])
       end
+
+      def create
+        @book = Book.new(book_params)
+
+        if @book.save
+          render json: @book
+        else
+          render json: @book.errors, status: :unprocessable_entity
+        end
+      end
+
+      protected
+
+      def book_params
+        params.require(:book).permit(:title, :description, :isbn)
+      end
     end
   end
 end

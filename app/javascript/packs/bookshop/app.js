@@ -7,17 +7,18 @@ import {
 import BookList from './components/bookList';
 import Book from './components/book';
 import NavigationBar from "./components/navbar";
+import {Container} from "reactstrap";
 
 const App = (props) => (
     <div>
         <NavigationBar />
         <Router>
-            <div className={'container'}>
+            <Container>
                 <Switch>
                     <Route exact path='/' component={BookList}/>
                     <Route path='/books/:id' component={Book}/>
                 </Switch>
-            </div>
+            </Container>
         </Router>
     </div>
 );
