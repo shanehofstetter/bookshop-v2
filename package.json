@@ -15,10 +15,12 @@
     "informed": "^1.10.9",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
+    "react-alert": "^4.0.4",
     "react-dom": "^16.6.3",
     "react-i18next": "^8.3.8",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-transition-group": "^2.5.0",
     "reactstrap": "^6.5.0",
     "resolve-url-loader": "^3.0.0",
     "webpack-cli": "^3.1.2"

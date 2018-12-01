@@ -5,6 +5,7 @@ import {Api} from "../middleware/api";
 import Form from "./forms/form";
 import Text from "./forms/text";
 import TextArea from "./forms/textarea";
+import {withAlert} from "react-alert";
 
 class BookCreateForm extends React.Component {
 
@@ -21,8 +22,10 @@ class BookCreateForm extends React.Component {
             console.log('new book:', book);
             this.setState({book, errors: {}});
             this.formApi.reset();
+            this.props.alert.show(`Book '${this.state.book.title}' successfully added.`, {type: 'success'});
         }).catch(formErrors => {
             this.setState((prevState) => ({...prevState, errors: formErrors}));
+            this.props.alert.show('Book could not be saved.', {type: 'warning'});
         });
     }
 
@@ -50,4 +53,4 @@ class BookCreateForm extends React.Component {
     }
 }
 
-export default withNamespaces('translation')(BookCreateForm);
+export default withAlert(withNamespaces('translation')(BookCreateForm));
