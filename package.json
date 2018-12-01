@@ -15,6 +15,7 @@
     "informed": "^1.10.9",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
+    "react-actioncable-provider": "^1.0.3",
     "react-alert": "^4.0.4",
     "react-dom": "^16.6.3",
     "react-i18next": "^8.3.8",

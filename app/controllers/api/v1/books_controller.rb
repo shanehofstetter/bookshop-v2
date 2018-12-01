@@ -15,6 +15,7 @@ module Api
         @book = Book.new(book_params)
 
         if @book.save
+          ActionCable.server.broadcast 'books', book: @book.as_json, action: 'created'
           render json: @book
         else
           render json: @book.errors, status: :unprocessable_entity

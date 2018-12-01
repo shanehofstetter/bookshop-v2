@@ -9,4 +9,6 @@ Rails.application.routes.draw do
 
   root to: 'pages#root'
   get '*unmatched_route', to: 'pages#root'
+
+  mount ActionCable.server => '/cable'
 end
