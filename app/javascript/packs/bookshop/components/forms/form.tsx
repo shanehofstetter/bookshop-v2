@@ -1,7 +1,8 @@
-import React from "react";
+import * as React from "react";
 import {Form as InformedForm} from "informed";
+import {GenericProperties} from "./utils";
 
-class Form extends React.Component {
+class Form extends React.Component<GenericProperties> {
     render() {
         const {children, ...other} = this.props;
 

@@ -33,6 +33,9 @@ de:
   form:
     submit: Speichern
 
+  link:
+    details: Details
+
   activerecord:
     models:
       book:

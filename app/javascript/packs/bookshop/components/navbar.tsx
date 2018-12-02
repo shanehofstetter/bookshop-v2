@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
     Collapse,
     Navbar,
@@ -10,10 +10,18 @@ import {
     DropdownMenu,
     DropdownItem
 } from 'reactstrap';
-import {withNamespaces} from "react-i18next";
+import {WithNamespaces, withNamespaces} from "react-i18next";
+import {Link} from "react-router-dom";
 
-class NavigationBar extends React.Component {
-    constructor(props) {
+export interface NavigationBarProperties extends WithNamespaces {
+}
+
+export interface NavigationBarState {
+    isOpen: boolean;
+}
+
+class NavigationBar extends React.Component<NavigationBarProperties, NavigationBarState> {
+    constructor(props: NavigationBarProperties) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
@@ -29,12 +37,12 @@ class NavigationBar extends React.Component {
     }
 
     render() {
-        const {t, i18n} = this.props;
+        const i18n = this.props.i18n;
 
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">Bookshop</NavbarBrand>
+                    <NavbarBrand href={'/'}>Bookshop</NavbarBrand>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>

@@ -1,12 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import {Api} from '../middleware/api';
 import BookListItem from './bookListItem';
-import {withNamespaces} from 'react-i18next';
+import {WithNamespaces, withNamespaces} from 'react-i18next';
 import BookCreateForm from "./bookCreateForm";
 import {Col, Row} from "reactstrap";
 import {ActionCable} from 'react-actioncable-provider';
+import {Book} from "../entities/book";
 
-class BookList extends React.Component {
+export interface BookListState {
+    books: Book[];
+}
+
+class BookList extends React.Component<WithNamespaces, BookListState> {
 
     constructor(props) {
         super(props);

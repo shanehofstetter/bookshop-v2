@@ -1,17 +1,29 @@
 import * as React from "react";
 import {Button, FormGroup, Label} from 'reactstrap';
-import {withNamespaces} from "react-i18next";
+import {WithNamespaces, withNamespaces} from "react-i18next";
 import {Api} from "../middleware/api";
 import Form from "./forms/form";
 import Text from "./forms/text";
 import TextArea from "./forms/textarea";
 import {withAlert} from "react-alert";
+import {Book} from "../entities/book";
 
-class BookCreateForm extends React.Component {
+export interface BookCreateFormProperties extends WithNamespaces {
+    alert: any;
+    className?: string;
+}
+
+export interface BookCreateFormState {
+    book: Book;
+    errors: any;
+}
+
+class BookCreateForm extends React.Component<BookCreateFormProperties, BookCreateFormState> {
+    private formApi: any;
 
     constructor(props) {
         super(props);
-        this.state = {book: {}, errors: {}};
+        this.state = {book: null, errors: {}};
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
         this.getFormApi = this.getFormApi.bind(this);
     }
@@ -53,4 +65,4 @@ class BookCreateForm extends React.Component {
     }
 }
 
-export default withAlert(withNamespaces('translation')(BookCreateForm));
+export default withAlert(withNamespaces('translation')<BookCreateFormProperties>(BookCreateForm));

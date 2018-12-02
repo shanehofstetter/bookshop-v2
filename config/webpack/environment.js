@@ -1,21 +1,5 @@
-const { environment } = require('@rails/webpacker')
+const {environment} = require('@rails/webpacker');
+const typescript = require('./loaders/typescript');
 
-module: {
-    rules: [
-        {
-            test: /\.js(\.erb)?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            options: {
-                presets: [
-                    ['env', { modules: false }]
-                ]
-            }
-        },
-    ]
-}
-environment.loaders.get('sass').use.splice(-1, 0, {
-    loader: 'resolve-url-loader'
-});
-
-module.exports = environment
+environment.loaders.append('typescript', typescript);
+module.exports = environment;

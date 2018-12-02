@@ -1,7 +1,14 @@
 import * as React from "react";
 import {Alert} from "reactstrap";
 
-class AlertTemplate extends React.Component {
+interface AlertTemplateProps {
+    style: any;
+    options: any;
+    message: any;
+    close: any;
+}
+
+class AlertTemplate extends React.Component<AlertTemplateProps> {
 
     render() {
         // the style contains only the margin given as offset

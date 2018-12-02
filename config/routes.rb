@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   get 'locales/:locale/translation', to: 'translations#show'
 
   root to: 'pages#root'
-  get '*unmatched_route', to: 'pages#root'
+  get '*unmatched_route', to: 'pages#root', constraints: ->(request) do
+    # needed for react-router to work
+    !request.xhr? && request.format.html?
+  end
 
   mount ActionCable.server => '/cable'
 end
