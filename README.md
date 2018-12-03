@@ -1,8 +1,9 @@
-# Bookshop
+# Bookshop V2
 
 ## Features
 
-* Rails API (very basic)
+* Rails API
+    * (TODO) add devise
 * React App
     * Bootstrap 4 components ([reactstrap](https://reactstrap.github.io))
     * list and add books
@@ -10,7 +11,10 @@
         * bootstrap form inputs with error rendering ([informed](https://joepuzzo.github.io/informed/) + custom)
     * I18n support (translations loaded from rails api) ([i18next](https://github.com/i18next/react-i18next))
     * Websocket/Actioncable example included ([react-actioncable-provider](https://github.com/cpunion/react-actioncable-provider))
-
+    * Redux
+    * Typescript
+    * (TODO) devise token authentication
+    * (TODO) login/logout
 
 ## Setup
 
