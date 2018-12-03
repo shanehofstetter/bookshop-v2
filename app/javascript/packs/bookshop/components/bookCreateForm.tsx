@@ -7,14 +7,15 @@ import Text from "./forms/text";
 import TextArea from "./forms/textarea";
 import {withAlert} from "react-alert";
 import {Book} from "../entities/book";
+import {connect} from "react-redux";
+import {add} from "../actions/bookActions";
 
-export interface BookCreateFormProperties extends WithNamespaces {
+export interface BookCreateFormProperties extends WithNamespaces{
     alert: any;
-    className?: string;
+    dispatch: any;
 }
 
 export interface BookCreateFormState {
-    book: Book;
     errors: any;
 }
 
@@ -23,20 +24,19 @@ class BookCreateForm extends React.Component<BookCreateFormProperties, BookCreat
 
     constructor(props) {
         super(props);
-        this.state = {book: null, errors: {}};
+        this.state = {errors: {}};
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
         this.getFormApi = this.getFormApi.bind(this);
     }
 
-    handleOnSubmit(formValues) {
-        this.setState({book: formValues});
-        Api.books.create(this.state.book).then(book => {
-            console.log('new book:', book);
-            this.setState({book, errors: {}});
+    handleOnSubmit(book: Book) {
+        Api.books.create(book).then(book => {
+            this.setState({errors: {}});
             this.formApi.reset();
-            this.props.alert.show(`Book '${this.state.book.title}' successfully added.`, {type: 'success'});
+            this.props.dispatch(add(book));
+            this.props.alert.show(`Book '${book.title}' successfully added.`, {type: 'success'});
         }).catch(formErrors => {
-            this.setState((prevState) => ({...prevState, errors: formErrors}));
+            this.setState({errors: formErrors});
             this.props.alert.show('Book could not be saved.', {type: 'warning'});
         });
     }
@@ -47,7 +47,7 @@ class BookCreateForm extends React.Component<BookCreateFormProperties, BookCreat
 
     render() {
         const {t} = this.props;
-        return <Form onSubmit={this.handleOnSubmit} getApi={this.getFormApi} className={this.props.className}>
+        return <Form onSubmit={this.handleOnSubmit} getApi={this.getFormApi} className={'mb-2 mt-2'}>
             <FormGroup>
                 <Label for={'title'}>{t('activerecord.attributes.book.title')}*</Label>
                 <Text field="title" id={'title'} errors={this.state.errors.title}/>
@@ -65,4 +65,10 @@ class BookCreateForm extends React.Component<BookCreateFormProperties, BookCreat
     }
 }
 
-export default withAlert(withNamespaces('translation')<BookCreateFormProperties>(BookCreateForm));
+const mapStateToProps = (): {} => ({});
+
+const i18nEnhanced = withNamespaces('translation')<BookCreateFormProperties>(BookCreateForm);
+const alertEnhanced = withAlert(i18nEnhanced);
+const stateEnhanced = connect(mapStateToProps)(alertEnhanced);
+
+export default stateEnhanced;

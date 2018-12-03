@@ -67,4 +67,4 @@ class NavigationBar extends React.Component<NavigationBarProperties, NavigationB
     }
 }
 
-export default withNamespaces('translation')(NavigationBar);
+export default withNamespaces('translation')<NavigationBarProperties>(NavigationBar);

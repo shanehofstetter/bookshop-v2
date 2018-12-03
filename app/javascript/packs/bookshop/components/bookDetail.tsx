@@ -2,11 +2,11 @@ import * as React from 'react';
 import {Api} from '../middleware/api';
 import {Book} from "../entities/book";
 
-export interface BookState {
+export interface BookDetailState {
     book: Book;
 }
 
-class BookDetail extends React.Component<{}, BookState> {
+class BookDetail extends React.Component<{}, BookDetailState> {
 
     constructor(props) {
         super(props);

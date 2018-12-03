@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './app';
 import './i18n';
+import Root from "./root";
 
 document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(<App/>, document.getElementById('bookshop-app') as HTMLElement);
+    ReactDOM.render(<Root/>, document.getElementById('bookshop-app') as HTMLElement);
 });

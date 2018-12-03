@@ -1,34 +1,34 @@
 import * as React from 'react';
-import {Api} from '../middleware/api';
 import BookListItem from './bookListItem';
 import {WithNamespaces, withNamespaces} from 'react-i18next';
 import BookCreateForm from "./bookCreateForm";
 import {Col, Row} from "reactstrap";
 import {ActionCable} from 'react-actioncable-provider';
 import {Book} from "../entities/book";
+import {connect} from "react-redux";
+import {AppState} from "../reducers";
+import {add, load} from "../actions/bookActions";
 
-export interface BookListState {
+export interface BookListProps extends WithNamespaces {
     books: Book[];
+    isLoading: boolean;
+    dispatch: any;
 }
 
-class BookList extends React.Component<WithNamespaces, BookListState> {
+class BookList extends React.Component<BookListProps> {
 
     constructor(props) {
         super(props);
-        this.state = {books: []};
         this.handleReceivedBook = this.handleReceivedBook.bind(this);
     }
 
     componentDidMount() {
-        Api.books.all().then(books => {
-            this.setState({books});
-        });
+        this.props.dispatch(load());
     }
 
     handleReceivedBook(response) {
-        console.log({response});
         if (response.action === 'created') {
-            this.setState({books: [...this.state.books, response.book]});
+            this.props.dispatch(add(response.book));
         }
     }
 
@@ -45,10 +45,10 @@ class BookList extends React.Component<WithNamespaces, BookListState> {
                         <h1>{t('activerecord.models.book.other')}</h1>
                     </Col>
                     <Col md={12}>
-                        <BookCreateForm className={'mb-2 mt-2'}/>
+                        <BookCreateForm/>
                     </Col>
                     <Col md={12}>
-                        {this.state.books.map((book, index) => <BookListItem key={index} book={book}/>)}
+                        {this.props.books.map((book, index) => <BookListItem key={index} book={book}/>)}
                     </Col>
                 </Row>
             </div>
@@ -56,4 +56,11 @@ class BookList extends React.Component<WithNamespaces, BookListState> {
     }
 }
 
-export default withNamespaces('translation')(BookList);
+const mapStateToProps = (state: AppState) => {
+    return {
+        books: state.books.books,
+        isLoading: state.books.isLoading
+    }
+};
+
+export default connect(mapStateToProps)(withNamespaces('translation')(BookList));
