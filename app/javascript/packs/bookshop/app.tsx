@@ -1,37 +1,39 @@
 import * as React from 'react'
 import {
-    BrowserRouter as Router,
     Route,
-    Switch
-} from 'react-router-dom'
-import BookList from './components/bookList';
+    Switch,
+    Redirect
+} from 'react-router-dom';
+import { withRouter } from "react-router";
 import NavigationBar from "./components/navbar";
 import {Container} from "reactstrap";
 import AlertTemplate from "./components/alerts/alertTemplate";
 import {Provider as AlertProvider} from 'react-alert'
 import {WS_ROOT} from "./config";
 import {ActionCableProvider} from 'react-actioncable-provider';
-import BookDetail from "./components/bookDetail";
 import NotFound from "./components/notFound";
+import Books from "./components/books";
+import {I18nextProvider} from "react-i18next";
+import i18n from './i18n';
 
-const App = (props) => (
-    <div>
+const App = (props) => {
+    i18n.on('languageChanged', (lng) => {
+        props.history.push(props.location.pathname.replace(/^\/[a-z]{2}\//, `/${lng}/`));
+    });
+
+    return <I18nextProvider i18n={i18n}>
         <ActionCableProvider url={WS_ROOT}>
             <AlertProvider template={AlertTemplate} timeout={5000}>
-                <Router>
-                    <React.Fragment>
-                        <NavigationBar/>
-                        <Container>
-                            <Switch>
-                                <Route exact path='/' component={BookList}/>
-                                <Route path='/books/:id' component={BookDetail}/>
-                                <Route path='*' component={NotFound}/>
-                            </Switch>
-                        </Container>
-                    </React.Fragment>
-                </Router>
+                <NavigationBar/>
+                <Container>
+                    <Switch>
+                        <Redirect exact from={`${props.match.url}`} to={`${props.match.url}/books`}/>
+                        <Route path={`${props.match.url}/books`} component={Books}/>
+                        <Route path={`${props.match.url}/*`} component={NotFound}/>
+                    </Switch>
+                </Container>
             </AlertProvider>
         </ActionCableProvider>
-    </div>
-);
-export default App;
+    </I18nextProvider>;
+};
+export default withRouter(App);

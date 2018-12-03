@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const all = () => {
-    return axios.get('/api/v1/books').then(({data}) => data).catch(console.error);
+    return axios.get('/api/v1/books').then(({data}) => data);
 };
 
 const byId = (id) => {
-    return axios.get(`/api/v1/books/${id}`).then(({data}) => data).catch(console.error);
+    return axios.get(`/api/v1/books/${id}`).then(({data}) => data);
 };
 
 const create = (book) => {

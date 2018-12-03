@@ -15,7 +15,7 @@ class BookListItem extends React.Component<BookListItemProperties> {
     }
 
     render() {
-        const t = this.props.t;
+        const {t} = this.props;
         return (
             <div className="book">
                 <Card>
@@ -23,7 +23,7 @@ class BookListItem extends React.Component<BookListItemProperties> {
                         <CardTitle>{this.props.book.title}</CardTitle>
                         <CardText>{this.props.book.description}</CardText>
                         <Button outline color="primary">
-                            <Link to={`/books/${this.props.book.id}`}>{t('link.details')}</Link>
+                            <Link to={`books/${this.props.book.id}`}>{t('link.details')}</Link>
                         </Button>
                     </CardBody>
                 </Card>

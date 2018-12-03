@@ -1,12 +1,17 @@
 import * as React from 'react';
 import {Api} from '../middleware/api';
 import {Book} from "../entities/book";
+import {withAlert} from "react-alert";
 
 export interface BookDetailState {
     book: Book;
 }
 
-class BookDetail extends React.Component<{}, BookDetailState> {
+interface BookDetailProps {
+    alert: any;
+}
+
+class BookDetail extends React.Component<BookDetailProps, BookDetailState> {
 
     constructor(props) {
         super(props);
@@ -19,6 +24,9 @@ class BookDetail extends React.Component<{}, BookDetailState> {
     componentDidMount() {
         Api.books.byId(this.state.book.id).then(book => {
             this.setState({book});
+        }).catch(e => {
+            console.error(`book with id ${this.state.book.id} not found`);
+            this.props.alert.show('Book not found.', {type: 'danger'});
         });
     }
 
@@ -34,4 +42,4 @@ class BookDetail extends React.Component<{}, BookDetailState> {
 
 }
 
-export default BookDetail;
+export default withAlert(BookDetail);

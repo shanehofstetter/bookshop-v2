@@ -28,6 +28,9 @@ i18n
         // learn more: https://react.i18next.com/components/i18next-instance
         react: {
             wait: true
+        },
+        detection: {
+            order: ['path', 'querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag', 'subdomain'],
         }
     });
 
