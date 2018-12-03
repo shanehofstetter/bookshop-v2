@@ -12,6 +12,7 @@ import {Provider as AlertProvider} from 'react-alert'
 import {WS_ROOT} from "./config";
 import {ActionCableProvider} from 'react-actioncable-provider';
 import BookDetail from "./components/bookDetail";
+import NotFound from "./components/notFound";
 
 const App = (props) => (
     <div>
@@ -24,6 +25,7 @@ const App = (props) => (
                             <Switch>
                                 <Route exact path='/' component={BookList}/>
                                 <Route path='/books/:id' component={BookDetail}/>
+                                <Route path='*' component={NotFound}/>
                             </Switch>
                         </Container>
                     </React.Fragment>
